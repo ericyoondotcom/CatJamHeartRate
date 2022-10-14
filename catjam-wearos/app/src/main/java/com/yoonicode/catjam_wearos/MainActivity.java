@@ -1,4 +1,4 @@
-package com.example.catjam_wearos;
+package com.yoonicode.catjam_wearos;
 
 import android.Manifest;
 import android.app.Activity;
@@ -9,7 +9,6 @@ import android.content.ServiceConnection;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.os.Looper;
 import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,12 +16,14 @@ import android.widget.Toast;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-import com.example.catjam_wearos.databinding.ActivityMainBinding;
+import com.yoonicode.catjam_wearos.databinding.ActivityMainBinding;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class MainActivity extends Activity {
+
+    public FirebaseManager firebase = new FirebaseManager(this);
 
     private TextView hrDisplay;
     private ActivityMainBinding binding;

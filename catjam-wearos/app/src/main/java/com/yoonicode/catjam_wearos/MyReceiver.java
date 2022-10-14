@@ -1,4 +1,4 @@
-package com.example.catjam_wearos;
+package com.yoonicode.catjam_wearos;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;

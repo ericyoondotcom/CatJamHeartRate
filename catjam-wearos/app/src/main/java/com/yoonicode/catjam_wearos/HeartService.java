@@ -1,4 +1,4 @@
-package com.example.catjam_wearos;
+package com.yoonicode.catjam_wearos;
 
 import android.app.Notification;
 import android.app.NotificationChannel;
@@ -83,6 +83,8 @@ class SensorListener implements SensorEventListener {
         if (sensorEvent.sensor.getType() == Sensor.TYPE_HEART_RATE) {
             Log.d("s", "Sensor changed to: " + sensorEvent.values[0]);
             rate = (int) sensorEvent.values[0];
+
+            FirebaseManager.instance.updateHeartRate(rate);
         }
     }
 
