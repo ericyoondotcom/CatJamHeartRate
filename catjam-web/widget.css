@@ -1,3 +1,10 @@
+#flexbox {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+
 #img-container {
     height: 640px;
     width: 540px;
@@ -11,4 +18,12 @@
 #main-image {
     position: absolute;
     left: 0px;
+}
+
+#number {
+    font-size: 100px;
+    color: #FF0000;
+    margin: 0;
+    font-family: "Mulish", "Arial", sans-serif;
+    font-weight: bold;
 }
