@@ -28,7 +28,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="@string/heart_rate_display"
+            android:text="..."
             android:textSize="24sp" />
 
     </FrameLayout>

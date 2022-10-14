@@ -3,7 +3,6 @@
     <string name="stop_service_action">stop_service</string>
     <string name="app_name">CatJam-WearOS</string>
     <string name="main_page_subtitle">Syncing heart rate</string>
-    <string name="heart_rate_display">100bpm</string>
 
     <string name="notification_channel_name">Status notifications</string>
     <string name="notification_channel_description">Show that the heart rate service is running.</string>

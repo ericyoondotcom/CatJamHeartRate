@@ -3,8 +3,10 @@
 
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+    <uses-permission android:name="android.permission.BODY_SENSORS" />
 
     <uses-feature android:name="android.hardware.type.watch" />
+    <uses-feature android:name="android.hardware.sensor.heartrate" android:required="true" />
 
     <application
         android:allowBackup="true"
@@ -35,7 +37,11 @@
             </intent-filter>
         </activity>
 
-        <service android:name=".HeartService"/>
+        <service android:name=".HeartService" android:enabled="true" android:exported="false">
+            <intent-filter>
+                <action android:name="stop_service" />
+            </intent-filter>
+        </service>
 
         <receiver android:name=".MyReceiver" android:exported="false" />
     </application>
