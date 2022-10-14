@@ -1,0 +1,14 @@
+#img-container {
+    height: 640px;
+    width: 540px;
+    overflow: hidden;
+}
+#sub-container {
+    height: 640px;
+    display: block;
+    position: relative;
+}
+#main-image {
+    position: absolute;
+    left: 0px;
+}
