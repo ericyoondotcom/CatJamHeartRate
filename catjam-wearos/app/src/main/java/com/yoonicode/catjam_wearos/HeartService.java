@@ -53,7 +53,7 @@ public class HeartService extends Service {
         listener = new SensorListener();
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         sensor = sensorManager.getDefaultSensor(Sensor.TYPE_HEART_RATE);
-        sensorManager.registerListener(listener, sensor, SensorManager.SENSOR_DELAY_FASTEST);
+        sensorManager.registerListener(listener, sensor, SensorManager.SENSOR_DELAY_NORMAL);
 
         return START_STICKY;
     }

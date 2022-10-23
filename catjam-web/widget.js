@@ -11,18 +11,32 @@ let hr = 1;
 let timeout;
 let image;
 let text;
+let app;
+let db;
 
 function registerListeners() {
     image = document.getElementById("main-image");
     text = document.getElementById("number");
-    nextFrame();
-    const input = document.getElementById("hr-input");
-    input.onchange = () => {
-        hr = input.value;
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyCUMiOVnY3nzKu93XtywbYMtRspR6JG2XQ",
+        authDomain: "cat-jam-heart-rate.firebaseapp.com",
+        databaseURL: "https://cat-jam-heart-rate-default-rtdb.firebaseio.com",
+        projectId: "cat-jam-heart-rate",
+        storageBucket: "cat-jam-heart-rate.appspot.com",
+        messagingSenderId: "904243714533",
+        appId: "1:904243714533:web:c54e1da6e2e3961336770c"
+    };
+    app = firebase.initializeApp(firebaseConfig);
+    db = firebase.database();
+    const hrRef = db.ref("users/test/heart_rate");
+
+    hrRef.on("value", (snap) => {
+        hr = snap.val();
         clearTimeout(timeout);
         nextFrame();
         text.innerHTML = hr;
-    }
+    });
 }
 
 
