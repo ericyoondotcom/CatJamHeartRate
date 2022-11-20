@@ -4,3 +4,5 @@
 catjam-wearos/app/google-services.json
 
 env.js
+
+.firebase/*.cache

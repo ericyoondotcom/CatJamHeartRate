@@ -1,0 +1,40 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="dashboard.css" />
+        <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+        <script src="../env.js"></script>
+        <script src="dashboard.js"></script>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;700&display=swap" rel="stylesheet">
+    </head>
+    <body>
+        <div id="grid">
+            <div id="left">
+                <h1>Cat Jam Heart Rate</h1>
+                <div id="unauthenticated" style="display: none;">
+                    <button id="sign-in" onclick="signIn()">Sign in with Google</button>
+                </div>
+                <div id="authenticated" style="display: none;">
+                    <div id="obs-info">
+                        <h3>Add to OBS</h3>
+                        <p>
+                            Type: Browser Source<br>
+                            URL: https://catjam.yoonicode.com/widget?id=<span id="id">[[LOADING]]</span><br>
+                            Width: 300<br>
+                            Height: 500
+                        </p>
+                    </div>
+                    <div class="padding"></div>
+                    <button id="sign-out" onclick="signOut()">Sign Out</button>
+                </div>
+            </div>
+            <div id="right">
+                <div id="iframe-container">
+                    <iframe src="../widget/index.html?bpm=0" title="Cat Jam demo" id="iframe"></iframe>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

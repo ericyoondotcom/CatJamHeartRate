@@ -6,24 +6,25 @@
 }
 
 #img-container {
-    height: 640px;
-    width: 540px;
+    height: 320px;
+    width: 270px;
     overflow: hidden;
 }
 #sub-container {
-    height: 640px;
+    height: 320px;
     display: block;
     position: relative;
 }
 #main-image {
+    height: 100%;
     position: absolute;
     left: 0px;
 }
 
 #number {
-    font-size: 200px;
+    font-size: 100px;
     color: #FF0000;
     margin: 0;
-    font-family: "Mulish", "Arial", sans-serif;
+    font-family: "Lexend", sans-serif;
     font-weight: bold;
 }

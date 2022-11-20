@@ -1,0 +1,35 @@
+body {
+    margin: 5vh 30vw;
+    font-family: "Lexend", sans-serif;
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+#iframe-container {
+    width: 250px;
+    height: 250px;
+    overflow: hidden;
+}
+#iframe {
+    width: 500px;
+    height: 500px;
+    transform: scale(0.5);
+    transform-origin: 0 0;
+    border: none;
+}
+
+h1 {
+    text-align: center;
+    font-size: 40px;
+}
+h2 {
+    text-align: center;
+    font-size: 30px;
+}
+p {
+    font-size: 20px;
+}
