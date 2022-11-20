@@ -6,8 +6,10 @@ window.addEventListener("load", () => {
     registerListeners();
 });
 
+let cycleStartTime = Date.now();
+let hrForThisCycle = 0; // Cat display will not update until one cycle is completed
 let frame = 0;
-let hr = 1;
+let hr = 100;
 let accuracy = "";
 let timeout;
 let image;
@@ -34,48 +36,39 @@ function registerListeners() {
     const accRef = db.ref("users/test/accuracy");
 
     hrRef.on("value", (snap) => {
-        hr = snap.val();
-        clearTimeout(timeout);
-        nextFrame();
+        // hr = snap.val();
     });
 
     accRef.on("value", (snap) => {
         accuracy = snap.val();
-        clearTimeout(timeout);
-        nextFrame();
-    })
+    });
+
+    setInterval(poll, INTERVAL);
 }
 
-
-function nextFrame() {
-
+function poll() {
+    function newCycle() {
+        cycleStartTime = Date.now();
+        hrForThisCycle = hr;
+    }
     if(accuracy.length > 0) {
         text.innerHTML = accuracy;
+        newCycle();
     } else if(hr <= 0) {
         text.innerHTML = "...";
-    }
-
-    if(hr <= 0 || accuracy.length > 0) {
-        image.style.left = "0px";
-        frame = 0;
-        timeout = setTimeout(nextFrame, 5000);
-        return;
+        newCycle();
     }
 
     const TRUE_NUM_FRAMES = NUM_FRAMES * 2 - 2;
-
     const fps = hr / 60 * TRUE_NUM_FRAMES;
     const millisPerFrame = Math.round(1 / fps * 1000);
 
-    const trueFrame = frame < NUM_FRAMES ? frame : NUM_FRAMES - (frame - NUM_FRAMES + 2);
+    const elapsedTime = Date.now() - cycleStartTime;
+    const frameNumber = Math.floor(elapsedTime / millisPerFrame);
+    if(frameNumber >= TRUE_NUM_FRAMES) newCycle();
+
+    const trueFrame = frameNumber < NUM_FRAMES ? frameNumber : NUM_FRAMES - (frameNumber - NUM_FRAMES + 2);
     image.style.left = -trueFrame * FRAME_WIDTH + "px";
 
-    frame++;
-    if (frame >= TRUE_NUM_FRAMES) {
-        frame = 0;
-    }
-
     text.innerHTML = hr;
-
-    timeout = setTimeout(nextFrame, millisPerFrame);
 }
