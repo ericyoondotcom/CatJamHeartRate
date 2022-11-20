@@ -36,4 +36,6 @@ dependencies {
     implementation 'androidx.wear:wear:1.2.0'
     implementation platform('com.google.firebase:firebase-bom:31.0.0')
     implementation 'com.google.firebase:firebase-database'
+    implementation 'com.google.firebase:firebase-auth'
+    implementation 'com.google.android.gms:play-services-auth:20.4.0'
 }

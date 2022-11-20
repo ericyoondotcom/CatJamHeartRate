@@ -36,7 +36,7 @@ function registerListeners() {
     const accRef = db.ref("users/test/accuracy");
 
     hrRef.on("value", (snap) => {
-        // hr = snap.val();
+        hr = snap.val();
     });
 
     accRef.on("value", (snap) => {
@@ -54,9 +54,11 @@ function poll() {
     if(accuracy.length > 0) {
         text.innerHTML = accuracy;
         newCycle();
+        return;
     } else if(hr <= 0) {
         text.innerHTML = "...";
         newCycle();
+        return;
     }
 
     const TRUE_NUM_FRAMES = NUM_FRAMES * 2 - 2;
