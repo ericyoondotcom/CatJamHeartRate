@@ -67,10 +67,14 @@ public class HeartService extends Service {
     }
 
     public int getCurrentHeartRate() {
+        if(listener == null) return 0;
         return listener.rate;
     }
 
-    public int getCurrentAccuracy() { return listener.accuracy; }
+    public int getCurrentAccuracy() {
+        if(listener == null) return SensorManager.SENSOR_STATUS_NO_CONTACT;
+        return listener.accuracy;
+    }
 
     @Override
     public IBinder onBind(Intent intent) {
