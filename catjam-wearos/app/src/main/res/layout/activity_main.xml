@@ -21,15 +21,19 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="@string/main_page_subtitle"
-            android:translationY="-60px" />
+            android:translationY="-80px" />
 
         <TextView
             android:id="@+id/hr_display"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
             android:layout_gravity="center"
-            android:text="..."
-            android:textSize="24sp" />
+            android:autoSizeMaxTextSize="24sp"
+            android:autoSizeMinTextSize="10sp"
+            android:autoSizeTextType="uniform"
+            android:hyphenationFrequency="none"
+            android:text="@string/accuracy_measuring"
+            android:textAlignment="center" />
 
     </FrameLayout>
 </androidx.wear.widget.BoxInsetLayout>

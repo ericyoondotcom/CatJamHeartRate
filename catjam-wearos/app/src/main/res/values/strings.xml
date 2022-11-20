@@ -6,6 +6,11 @@
 
     <string name="notification_channel_name">Status notifications</string>
     <string name="notification_channel_description">Show that the heart rate service is running.</string>
-
+    <string name="notification_title">CatJamHeartRate is running</string>
+    <string name="notification_description">Visit the website to configure</string>
     <string name="cancel_button">Stop</string>
+
+    <string name="accuracy_measuring">Measuring...</string>
+    <string name="accuracy_inaccurate">Inaccurate measurements</string>
+    <string name="accuracy_no_contact">Put on watch</string>
 </resources>

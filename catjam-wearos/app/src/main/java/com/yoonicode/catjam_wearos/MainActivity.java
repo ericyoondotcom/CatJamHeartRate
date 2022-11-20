@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.pm.PackageManager;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.util.Log;
@@ -23,7 +24,9 @@ import java.util.TimerTask;
 
 public class MainActivity extends Activity {
 
-    public FirebaseManager firebase = new FirebaseManager(this);
+    private static Context context; // https://stackoverflow.com/questions/4391720/how-can-i-get-a-resource-content-from-a-static-context/4391811#4391811
+
+    public FirebaseManager firebase;
 
     private TextView hrDisplay;
     private ActivityMainBinding binding;
@@ -45,6 +48,8 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        context = this;
+
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
@@ -53,6 +58,8 @@ public class MainActivity extends Activity {
         Context context = getApplicationContext();
         Intent intent = new Intent(context, HeartService.class);
         context.startService(intent);
+
+        firebase = new FirebaseManager(this);
     }
 
     @Override
@@ -92,7 +99,14 @@ public class MainActivity extends Activity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            hrDisplay.setText(service.getCurrentHeartRate() + " bpm");
+                            int accuracy = service.getCurrentAccuracy();
+                            if(accuracy == SensorManager.SENSOR_STATUS_NO_CONTACT) {
+                                hrDisplay.setText(getString(R.string.accuracy_no_contact));
+                            } else if(accuracy == SensorManager.SENSOR_STATUS_UNRELIABLE) {
+                                hrDisplay.setText(getString(R.string.accuracy_inaccurate));
+                            } else {
+                                hrDisplay.setText(service.getCurrentHeartRate() + " bpm");
+                            }
                         }
                     });
                 }
@@ -104,5 +118,9 @@ public class MainActivity extends Activity {
     protected void onStop() {
         super.onStop();
         unbindService(connection);
+    }
+
+    public static Context getContext() {
+        return context;
     }
 }

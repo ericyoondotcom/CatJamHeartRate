@@ -5,6 +5,7 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
+import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.Intent;
 import android.hardware.Sensor;
@@ -38,15 +39,22 @@ public class HeartService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         createNotificationChannel();
+
+        Intent launchIntent = new Intent(this, MainActivity.class);
+        TaskStackBuilder stackBuilder = TaskStackBuilder.create(this); // https://developer.android.com/develop/ui/views/notifications/navigation#build_a_pendingintent_with_a_back_stack
+        stackBuilder.addNextIntent(launchIntent);
+        PendingIntent launchPendingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+
         Intent cancelServiceIntent = new Intent(this, MyReceiver.class);
         cancelServiceIntent.setAction(getString(R.string.stop_service_action));
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, cancelServiceIntent, 0);
+        PendingIntent cancelServicePendingIntent = PendingIntent.getBroadcast(this, 0, cancelServiceIntent, 0);
+
         Notification notif = new NotificationCompat.Builder(this, "status")
                 .setSmallIcon(R.drawable.icon)
-                .setContentTitle("CatJamHeartRate is running")
-                .setContentText("View the companion website to configure")
-                .setContentIntent(pendingIntent)
-                .addAction(R.drawable.icon, getString(R.string.cancel_button), pendingIntent)
+                .setContentTitle(getString(R.string.notification_title))
+                .setContentText(getString(R.string.notification_description))
+                .setContentIntent(launchPendingIntent)
+                .addAction(R.drawable.icon, getString(R.string.cancel_button), cancelServicePendingIntent)
                 .build();
         startForeground(1, notif);
 
@@ -62,6 +70,8 @@ public class HeartService extends Service {
         return listener.rate;
     }
 
+    public int getCurrentAccuracy() { return listener.accuracy; }
+
     @Override
     public IBinder onBind(Intent intent) {
         return binder;
@@ -76,10 +86,10 @@ public class HeartService extends Service {
 
 class SensorListener implements SensorEventListener {
     public int rate;
+    public int accuracy;
 
     @Override
     public void onSensorChanged(SensorEvent sensorEvent) {
-        Log.d("Sensor type", "Sensor type: " + sensorEvent.sensor.getType());
         if (sensorEvent.sensor.getType() == Sensor.TYPE_HEART_RATE) {
             Log.d("s", "Sensor changed to: " + sensorEvent.values[0]);
             rate = (int) sensorEvent.values[0];
@@ -89,5 +99,10 @@ class SensorListener implements SensorEventListener {
     }
 
     @Override
-    public void onAccuracyChanged(Sensor sensor, int i) {}
+    public void onAccuracyChanged(Sensor sensor, int acc) {
+        Log.d("s", "Accuracy changed to: " + acc);
+        accuracy = acc;
+
+        FirebaseManager.instance.updateAccuracy(accuracy);
+    }
 }
