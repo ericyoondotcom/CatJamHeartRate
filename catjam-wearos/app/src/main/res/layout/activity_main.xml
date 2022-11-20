@@ -35,5 +35,13 @@
             android:text="@string/accuracy_measuring"
             android:textAlignment="center" />
 
+        <Button
+            android:id="@+id/sign_out_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|bottom"
+            android:backgroundTint="@color/sign_out_bg"
+            android:text="@string/sign_out" />
+
     </FrameLayout>
 </androidx.wear.widget.BoxInsetLayout>

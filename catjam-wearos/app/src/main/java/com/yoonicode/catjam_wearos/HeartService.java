@@ -98,6 +98,7 @@ class SensorListener implements SensorEventListener {
             Log.d("s", "Sensor changed to: " + sensorEvent.values[0]);
             rate = (int) sensorEvent.values[0];
 
+            if(FirebaseManager.instance == null) return;
             FirebaseManager.instance.updateHeartRate(rate);
         }
     }
@@ -107,6 +108,7 @@ class SensorListener implements SensorEventListener {
         Log.d("s", "Accuracy changed to: " + acc);
         accuracy = acc;
 
+        if(FirebaseManager.instance == null) return;
         FirebaseManager.instance.updateAccuracy(accuracy);
     }
 }

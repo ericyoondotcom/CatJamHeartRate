@@ -13,4 +13,7 @@
     <string name="accuracy_measuring">Measuring...</string>
     <string name="accuracy_inaccurate">Inaccurate measurements</string>
     <string name="accuracy_no_contact">Put on watch</string>
+
+    <string name="sign_out">Sign out</string>
+    <color name="sign_out_bg">#A52020</color>
 </resources>

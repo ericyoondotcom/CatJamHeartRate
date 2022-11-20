@@ -9,7 +9,7 @@ window.addEventListener("load", () => {
 let cycleStartTime = Date.now();
 let hrForThisCycle = 0; // Cat display will not update until one cycle is completed
 let frame = 0;
-let hr = 100;
+let hr = 0;
 let accuracy = "";
 let timeout;
 let image;
@@ -21,15 +21,6 @@ function registerListeners() {
     image = document.getElementById("main-image");
     text = document.getElementById("number");
 
-    const firebaseConfig = {
-        apiKey: "AIzaSyCUMiOVnY3nzKu93XtywbYMtRspR6JG2XQ",
-        authDomain: "cat-jam-heart-rate.firebaseapp.com",
-        databaseURL: "https://cat-jam-heart-rate-default-rtdb.firebaseio.com",
-        projectId: "cat-jam-heart-rate",
-        storageBucket: "cat-jam-heart-rate.appspot.com",
-        messagingSenderId: "904243714533",
-        appId: "1:904243714533:web:c54e1da6e2e3961336770c"
-    };
     app = firebase.initializeApp(firebaseConfig);
     db = firebase.database();
     const hrRef = db.ref("users/test/heart_rate");

@@ -2,3 +2,5 @@
 .DS_Store
 
 catjam-wearos/app/google-services.json
+
+env.js

@@ -36,6 +36,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".AuthenticationActivity"
+            android:exported="true"
+            android:label="Sign In to CatJam">
+        </activity>
 
         <service android:name=".HeartService" android:enabled="true" android:exported="false">
             <intent-filter>

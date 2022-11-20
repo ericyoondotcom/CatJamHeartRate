@@ -11,12 +11,14 @@ import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.util.Log;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.google.firebase.auth.FirebaseUser;
 import com.yoonicode.catjam_wearos.databinding.ActivityMainBinding;
 
 import java.util.Timer;
@@ -30,6 +32,7 @@ public class MainActivity extends Activity {
 
     private TextView hrDisplay;
     private ActivityMainBinding binding;
+    private Button signOutButton;
     private HeartService service;
 
     private ServiceConnection connection = new ServiceConnection() {
@@ -52,14 +55,19 @@ public class MainActivity extends Activity {
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
         hrDisplay = binding.hrDisplay;
+        signOutButton = binding.signOutButton;
+        signOutButton.setOnClickListener(view -> { signOut(); });
 
         Context context = getApplicationContext();
         Intent intent = new Intent(context, HeartService.class);
         context.startService(intent);
 
-        firebase = new FirebaseManager(this);
+        if(FirebaseManager.instance == null) {
+            firebase = new FirebaseManager(this);
+        } else {
+            firebase = FirebaseManager.instance;
+        }
     }
 
     @Override
@@ -70,7 +78,7 @@ public class MainActivity extends Activity {
         {
             ActivityCompat.requestPermissions(MainActivity.this, new String[] { Manifest.permission.BODY_SENSORS }, 1);
         } else {
-            onReadyToTrack();
+            tryAuthentication();
         }
     }
 
@@ -80,10 +88,20 @@ public class MainActivity extends Activity {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
         if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            onReadyToTrack();
+            tryAuthentication();
         }
         else {
-            Toast.makeText(MainActivity.this, "App will not function without Body Sensors permission", Toast.LENGTH_LONG) .show();
+            Toast.makeText(MainActivity.this, "App will not function without Body Sensors permission", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private void tryAuthentication() {
+        FirebaseUser user = FirebaseManager.instance.auth.getCurrentUser();
+        if(user == null) {
+            Intent intent = new Intent(MainActivity.this, AuthenticationActivity.class);
+            startActivity(intent);
+        } else {
+            onReadyToTrack();
         }
     }
 
@@ -118,6 +136,11 @@ public class MainActivity extends Activity {
     protected void onStop() {
         super.onStop();
         unbindService(connection);
+    }
+
+    private void signOut() {
+        FirebaseManager.instance.getAuth().signOut();
+        tryAuthentication();
     }
 
     public static Context getContext() {
