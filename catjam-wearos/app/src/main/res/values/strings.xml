@@ -2,12 +2,12 @@
     <color name="color_bg">#850000</color>
     <string name="stop_service_action">stop_service</string>
     <string name="app_name">CatJam-WearOS</string>
-    <string name="main_page_subtitle">Syncing heart rate</string>
+    <string name="main_page_subtitle">Configure at catjam.yoonicode.com</string>
 
     <string name="notification_channel_name">Status notifications</string>
     <string name="notification_channel_description">Show that the heart rate service is running.</string>
     <string name="notification_title">CatJamHeartRate is running</string>
-    <string name="notification_description">Visit the website to configure</string>
+    <string name="notification_description">Configure at catjam.yoonicode.com</string>
     <string name="cancel_button">Stop</string>
 
     <string name="accuracy_measuring">Measuring...</string>

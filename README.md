@@ -1,10 +1,17 @@
 # CatJamHeartRate
-WearOS + Web OBS element to sync a CatJam gif to your heart rate
+WearOS + Web OBS element to sync a CatJam gif to your heart rate.
 
-# Getting Started with Development
+Inspired by [Domi2803's HeartWear](https://github.com/Domi2803/HeartWear)
+
+## Instructions For Use
+1. Compile and install the WearOS app from source (Google Play app coming soon)
+2. Visit [catjam.yoonicode.com](https://catjam.yoonicode.com) and sign in with Google
+3. Follow instructions to add the OBS Browser Source
+
+## Getting Started with Development
 - Create a Firebase project and enable Authentication, Sign In with Google, and Realtime Database
 - Clone `catjam-wearos/app/src/main/res/values/secrets.template.xml` into `catjam-wearos/app/src/main/res/values/secrets.xml` and fill in the values
-    - `firebase_web_client_id`: your Web application client ID in the GCP console ([info](https://firebase.google.com/docs/auth/android/google-signin#authenticate_with_firebase))
+    - `firebase_web_client_id`: your Web application client ID in the Google Cloud console ([info](https://firebase.google.com/docs/auth/android/google-signin#authenticate_with_firebase))
 - Clone `catjam-web/env.template.js` into `catjam-web/env.js` and fill in the values
 - Create a keystore to sign your app
     - Add your SHA-1 fingerprint to the Firebase console ([info](https://stackoverflow.com/a/49800546/4699945))

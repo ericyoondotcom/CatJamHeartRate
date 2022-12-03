@@ -33,3 +33,13 @@ h2 {
 p {
     font-size: 20px;
 }
+
+#footer {
+    margin-top: 50px;
+    font-size: 15px;
+    text-align: center;
+}
+#footer a {
+    color: #000000;
+    text-decoration: underline;
+}
