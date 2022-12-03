@@ -61,12 +61,14 @@ public class HeartService extends Service {
         startForeground(1, notif);
 
         if(listener == null) {
+            Log.d("s", "Sensor listener is null, creating one");
             listener = new SensorListener();
             sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
             sensor = sensorManager.getDefaultSensor(Sensor.TYPE_HEART_RATE);
             sensorManager.registerListener(listener, sensor, SensorManager.SENSOR_DELAY_NORMAL);
         }
 
+        Log.d("s", "Service start command called!");
         return START_STICKY;
     }
 

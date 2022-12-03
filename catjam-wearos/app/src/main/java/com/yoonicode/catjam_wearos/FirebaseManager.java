@@ -26,8 +26,7 @@ public class FirebaseManager {
         database = FirebaseDatabase.getInstance();
         auth = FirebaseAuth.getInstance();
         updateHeartRate(0);
-        DatabaseReference accuracyRef = database.getReference().child("users").child("test").child("accuracy");
-        accuracyRef.setValue(MainActivity.getContext().getString(R.string.accuracy_measuring));
+        updateAccuracy(-420);
     }
 
     public void updateHeartRate(int heartRate) {
@@ -45,6 +44,9 @@ public class FirebaseManager {
         DatabaseReference ref = database.getReference().child("users").child(currentUser.getUid()).child("accuracy");
         String value;
         switch(accuracy) {
+            case -420:
+                value = "Measuring...";
+                break;
             case SensorManager.SENSOR_STATUS_UNRELIABLE:
                 value = MainActivity.getContext().getString(R.string.accuracy_inaccurate);
                 break;

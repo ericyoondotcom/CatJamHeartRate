@@ -34,6 +34,7 @@ public class MainActivity extends Activity {
     private ActivityMainBinding binding;
     private Button signOutButton;
     private HeartService service;
+    private boolean isBound;
 
     private ServiceConnection connection = new ServiceConnection() {
         @Override
@@ -58,10 +59,6 @@ public class MainActivity extends Activity {
         hrDisplay = binding.hrDisplay;
         signOutButton = binding.signOutButton;
         signOutButton.setOnClickListener(view -> { signOut(); });
-
-        Context context = getApplicationContext();
-        Intent intent = new Intent(context, HeartService.class);
-        context.startService(intent);
 
         if(FirebaseManager.instance == null) {
             firebase = new FirebaseManager(this);
@@ -106,9 +103,12 @@ public class MainActivity extends Activity {
     }
 
     private void onReadyToTrack() {
-        Intent intent = new Intent(getApplicationContext(), HeartService.class);
+        Context context = getApplicationContext();
+        Intent intent = new Intent(context, HeartService.class);
+        context.startService(intent);
+
         Log.d("bind", "Bind service called");
-        bindService(intent, connection, Context.BIND_AUTO_CREATE);
+        isBound = bindService(intent, connection, Context.BIND_AUTO_CREATE);
 
         new Timer().scheduleAtFixedRate(new TimerTask(){
             @Override
@@ -135,7 +135,7 @@ public class MainActivity extends Activity {
     @Override
     protected void onStop() {
         super.onStop();
-        unbindService(connection);
+        if(isBound) unbindService(connection);
     }
 
     private void signOut() {
