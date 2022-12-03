@@ -1,6 +1,10 @@
 {
   "rules": {
-    ".read": "now < 1668326400000",  // 2022-11-13
-    ".write": "now < 1668326400000",  // 2022-11-13
+    "users": {
+      "$user_id": {
+        ".read": true,
+        ".write": "$user_id === auth.uid"
+      }
+    }
   }
 }
