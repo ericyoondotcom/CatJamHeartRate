@@ -19,6 +19,8 @@ import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
 
+import java.util.logging.Logger;
+
 public class HeartService extends Service {
     HeartBinder binder = new HeartBinder();
     SensorListener listener;
@@ -58,12 +60,21 @@ public class HeartService extends Service {
                 .build();
         startForeground(1, notif);
 
-        listener = new SensorListener();
-        sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-        sensor = sensorManager.getDefaultSensor(Sensor.TYPE_HEART_RATE);
-        sensorManager.registerListener(listener, sensor, SensorManager.SENSOR_DELAY_NORMAL);
+        if(listener == null) {
+            listener = new SensorListener();
+            sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+            sensor = sensorManager.getDefaultSensor(Sensor.TYPE_HEART_RATE);
+            sensorManager.registerListener(listener, sensor, SensorManager.SENSOR_DELAY_NORMAL);
+        }
 
         return START_STICKY;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.d("s", "Service destroy called.");
+        sensorManager.unregisterListener(listener, sensor);
     }
 
     public int getCurrentHeartRate() {
