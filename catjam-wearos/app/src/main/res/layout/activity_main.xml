@@ -10,9 +10,61 @@
     tools:deviceIds="wear">
 
     <FrameLayout
+        android:id="@+id/no_permission"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="@dimen/inner_frame_layout_padding"
+        android:visibility="visible"
+        app:layout_boxedEdges="all">
+
+        <TextView
+            android:id="@+id/no_permission_subtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|top"
+            android:text="@string/no_permission_subtitle"
+            android:textAlignment="center" />
+
+        <Button
+            android:id="@+id/grant_permission_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center_horizontal"
+            android:backgroundTint="@color/button_bg"
+            android:text="@string/allow" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/unauthenticated"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/inner_frame_layout_padding"
+        android:visibility="gone"
+        app:layout_boxedEdges="all">
+
+        <TextView
+            android:id="@+id/unauthenticated_subtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|top"
+            android:text="@string/unauthenticated_subtitle"
+            android:textAlignment="center" />
+
+        <Button
+            android:id="@+id/sign_in_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center_horizontal"
+            android:backgroundTint="@color/button_bg"
+            android:text="@string/get_started" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/inner_frame_layout_padding"
+        android:visibility="gone"
         app:layout_boxedEdges="all">
 
         <TextView
@@ -21,8 +73,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal|top"
             android:text="@string/main_page_subtitle"
-            android:textAlignment="center"
-            />
+            android:textAlignment="center" />
 
         <TextView
             android:id="@+id/hr_display"
@@ -30,7 +81,7 @@
             android:layout_height="50dp"
             android:layout_gravity="center"
             android:autoSizeMaxTextSize="24sp"
-            android:autoSizeMinTextSize="10sp"
+            android:autoSizeMinTextSize="8sp"
             android:autoSizeTextType="uniform"
             android:hyphenationFrequency="none"
             android:text="@string/accuracy_measuring"
@@ -41,7 +92,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal|bottom"
-            android:backgroundTint="@color/sign_out_bg"
+            android:backgroundTint="@color/button_bg"
             android:text="@string/sign_out" />
 
     </FrameLayout>

@@ -77,6 +77,7 @@ public class HeartService extends Service {
         super.onDestroy();
         Log.d("s", "Service destroy called.");
         sensorManager.unregisterListener(listener, sensor);
+        if(FirebaseManager.instance != null) FirebaseManager.instance.updateHeartRate(0);
     }
 
     public int getCurrentHeartRate() {

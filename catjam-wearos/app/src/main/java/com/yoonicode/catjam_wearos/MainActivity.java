@@ -11,6 +11,7 @@ import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,12 +28,9 @@ import java.util.TimerTask;
 public class MainActivity extends Activity {
 
     private static Context context; // https://stackoverflow.com/questions/4391720/how-can-i-get-a-resource-content-from-a-static-context/4391811#4391811
-
     public FirebaseManager firebase;
 
-    private TextView hrDisplay;
     private ActivityMainBinding binding;
-    private Button signOutButton;
     private HeartService service;
     private boolean isBound;
 
@@ -51,14 +49,13 @@ public class MainActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         context = this;
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        hrDisplay = binding.hrDisplay;
-        signOutButton = binding.signOutButton;
-        signOutButton.setOnClickListener(view -> { signOut(); });
+        binding.signOutButton.setOnClickListener(view -> { signOut(); });
+        binding.grantPermissionButton.setOnClickListener(view -> { requestPermission(); });
+        binding.signInButton.setOnClickListener(view -> { tryAuthentication(); });
 
         if(FirebaseManager.instance == null) {
             firebase = new FirebaseManager(this);
@@ -67,16 +64,34 @@ public class MainActivity extends Activity {
         }
     }
 
+    private void updateUI() {
+        boolean hasPermission = ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.BODY_SENSORS) == PackageManager.PERMISSION_GRANTED;
+        FirebaseUser user = FirebaseManager.instance.auth.getCurrentUser();
+
+        if(!hasPermission) {
+            binding.noPermission.setVisibility(View.VISIBLE);
+            binding.unauthenticated.setVisibility(View.GONE);
+            binding.main.setVisibility(View.GONE);
+        } else if(user == null) {
+            binding.noPermission.setVisibility(View.GONE);
+            binding.unauthenticated.setVisibility(View.VISIBLE);
+            binding.main.setVisibility(View.GONE);
+        } else {
+            binding.noPermission.setVisibility(View.GONE);
+            binding.unauthenticated.setVisibility(View.GONE);
+            binding.main.setVisibility(View.VISIBLE);
+            onReadyToTrack();
+        }
+    }
+
     @Override
     protected void onStart() {
         super.onStart();
+        updateUI();
+    }
 
-        if(ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.BODY_SENSORS) != PackageManager.PERMISSION_GRANTED)
-        {
-            ActivityCompat.requestPermissions(MainActivity.this, new String[] { Manifest.permission.BODY_SENSORS }, 1);
-        } else {
-            tryAuthentication();
-        }
+    private void requestPermission() {
+        ActivityCompat.requestPermissions(MainActivity.this, new String[] { Manifest.permission.BODY_SENSORS }, 1);
     }
 
     @Override
@@ -85,7 +100,7 @@ public class MainActivity extends Activity {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
         if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            tryAuthentication();
+            updateUI();
         }
         else {
             Toast.makeText(MainActivity.this, "App will not function without Body Sensors permission", Toast.LENGTH_LONG).show();
@@ -93,13 +108,8 @@ public class MainActivity extends Activity {
     }
 
     private void tryAuthentication() {
-        FirebaseUser user = FirebaseManager.instance.auth.getCurrentUser();
-        if(user == null) {
-            Intent intent = new Intent(MainActivity.this, AuthenticationActivity.class);
-            startActivity(intent);
-        } else {
-            onReadyToTrack();
-        }
+        Intent intent = new Intent(MainActivity.this, AuthenticationActivity.class);
+        startActivity(intent);
     }
 
     private void onReadyToTrack() {
@@ -119,11 +129,11 @@ public class MainActivity extends Activity {
                         public void run() {
                             int accuracy = service.getCurrentAccuracy();
                             if(accuracy == SensorManager.SENSOR_STATUS_NO_CONTACT) {
-                                hrDisplay.setText(getString(R.string.accuracy_no_contact));
+                                binding.hrDisplay.setText(getString(R.string.accuracy_no_contact));
                             } else if(accuracy == SensorManager.SENSOR_STATUS_UNRELIABLE) {
-                                hrDisplay.setText(getString(R.string.accuracy_inaccurate));
+                                binding.hrDisplay.setText(getString(R.string.accuracy_inaccurate));
                             } else {
-                                hrDisplay.setText(service.getCurrentHeartRate() + " bpm");
+                                binding.hrDisplay.setText(service.getCurrentHeartRate() + " bpm");
                             }
                         }
                     });
@@ -140,7 +150,7 @@ public class MainActivity extends Activity {
 
     private void signOut() {
         FirebaseManager.instance.getAuth().signOut();
-        tryAuthentication();
+        updateUI();
     }
 
     public static Context getContext() {

@@ -5,14 +5,14 @@ plugins {
 
 android {
     namespace 'com.yoonicode.catjam_wearos'
-    compileSdk 31
+    compileSdk 33
 
     defaultConfig {
         applicationId "com.yoonicode.catjam_wearos"
         minSdk 28
-        targetSdk 31
-        versionCode 2
-        versionName "1.1"
+        targetSdk 33
+        versionCode 4
+        versionName "1.0.0"
 
     }
 
@@ -29,7 +29,7 @@ android {
 
 dependencies {
 
-    implementation 'com.google.android.gms:play-services-wearable:17.1.0'
+    implementation 'com.google.android.gms:play-services-wearable:18.0.0'
     implementation 'androidx.percentlayout:percentlayout:1.0.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.recyclerview:recyclerview:1.2.1'
