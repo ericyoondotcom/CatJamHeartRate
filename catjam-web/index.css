@@ -33,7 +33,9 @@ h2 {
 p {
     font-size: 20px;
 }
-
+.center {
+    text-align: center;
+}
 #footer {
     margin-top: 50px;
     font-size: 15px;
@@ -42,4 +44,7 @@ p {
 #footer a {
     color: #000000;
     text-decoration: underline;
+}
+#play-badge {
+    width: 200px;
 }
