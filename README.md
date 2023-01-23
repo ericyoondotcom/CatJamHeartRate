@@ -1,10 +1,14 @@
 # CatJamHeartRate
+[catjam.yoonicode.com](https://catjam.yoonicode.com)
+
 WearOS + Web OBS element to sync a CatJam gif to your heart rate.
 
 Inspired by [Domi2803's HeartWear](https://github.com/Domi2803/HeartWear)
 
+Idea by [hex-key](https://github.com/hex-key) :)
+
 ## Instructions For Use
-1. Compile and install the WearOS app from source (Google Play app coming soon)
+1. [Get the WearOS app](https://play.google.com/store/apps/details?id=com.yoonicode.catjam_wearos), or compile from source
 2. Visit [catjam.yoonicode.com](https://catjam.yoonicode.com) and sign in with Google
 3. Follow instructions to add the OBS Browser Source
 
