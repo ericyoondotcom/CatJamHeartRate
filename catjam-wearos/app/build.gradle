@@ -5,12 +5,12 @@ plugins {
 
 android {
     namespace 'com.yoonicode.catjam_wearos'
-    compileSdk 33
+    compileSdk 34
 
     defaultConfig {
         applicationId "com.yoonicode.catjam_wearos"
         minSdk 28
-        targetSdk 33
+        targetSdk 34
         versionCode 4
         versionName "1.0.0"
 
@@ -29,13 +29,13 @@ android {
 
 dependencies {
 
-    implementation 'com.google.android.gms:play-services-wearable:18.0.0'
+    implementation 'com.google.android.gms:play-services-wearable:18.1.0'
     implementation 'androidx.percentlayout:percentlayout:1.0.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'androidx.recyclerview:recyclerview:1.2.1'
-    implementation 'androidx.wear:wear:1.2.0'
+    implementation 'androidx.recyclerview:recyclerview:1.3.2'
+    implementation 'androidx.wear:wear:1.3.0'
     implementation platform('com.google.firebase:firebase-bom:31.0.0')
     implementation 'com.google.firebase:firebase-database'
     implementation 'com.google.firebase:firebase-auth'
-    implementation 'com.google.android.gms:play-services-auth:20.4.0'
+    implementation 'com.google.android.gms:play-services-auth:21.0.0'
 }
