@@ -75,3 +75,10 @@ p {
 #obs-info p {
     font-size: 15px;
 }
+
+#delete-data-link {
+    color: #FF0000;
+    text-decoration: none;
+    display: block;
+    margin-top: 20px;
+}
