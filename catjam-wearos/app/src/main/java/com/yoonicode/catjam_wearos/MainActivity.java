@@ -67,7 +67,8 @@ public class MainActivity extends Activity {
     private void updateUI() {
         boolean hasPermission = ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.BODY_SENSORS) == PackageManager.PERMISSION_GRANTED;
         FirebaseUser user = FirebaseManager.instance.auth.getCurrentUser();
-
+        if(user != null) Log.d("username", user.getDisplayName());
+        else Log.d("username", "User is null!");
         if(!hasPermission) {
             binding.noPermission.setVisibility(View.VISIBLE);
             binding.unauthenticated.setVisibility(View.GONE);
@@ -87,6 +88,12 @@ public class MainActivity extends Activity {
     @Override
     protected void onStart() {
         super.onStart();
+        updateUI();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         updateUI();
     }
 
@@ -133,7 +140,7 @@ public class MainActivity extends Activity {
                             } else if(accuracy == SensorManager.SENSOR_STATUS_UNRELIABLE) {
                                 binding.hrDisplay.setText(getString(R.string.accuracy_inaccurate));
                             } else {
-                                binding.hrDisplay.setText(service.getCurrentHeartRate() + " bpm");
+                                binding.hrDisplay.setText(getString(R.string.heart_rate_display, service.getCurrentHeartRate()));
                             }
                         }
                     });

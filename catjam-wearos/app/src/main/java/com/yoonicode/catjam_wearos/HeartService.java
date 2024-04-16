@@ -114,6 +114,8 @@ class SensorListener implements SensorEventListener {
 
             if(FirebaseManager.instance == null) return;
             FirebaseManager.instance.updateHeartRate(rate);
+
+            Log.d("s", "Finished");
         }
     }
 
