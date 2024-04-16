@@ -28,7 +28,6 @@ public class HeartService extends Service {
     Sensor sensor;
 
     private void createNotificationChannel() {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) return;
         CharSequence name = getString(R.string.notification_channel_name);
         String description = getString(R.string.notification_channel_description);
         int importance = NotificationManager.IMPORTANCE_MIN;
@@ -49,7 +48,7 @@ public class HeartService extends Service {
 
         Intent cancelServiceIntent = new Intent(this, MyReceiver.class);
         cancelServiceIntent.setAction(getString(R.string.stop_service_action));
-        PendingIntent cancelServicePendingIntent = PendingIntent.getBroadcast(this, 0, cancelServiceIntent, 0);
+        PendingIntent cancelServicePendingIntent = PendingIntent.getBroadcast(this, 0, cancelServiceIntent, PendingIntent.FLAG_IMMUTABLE);
 
         Notification notif = new NotificationCompat.Builder(this, "status")
                 .setSmallIcon(R.drawable.icon)
