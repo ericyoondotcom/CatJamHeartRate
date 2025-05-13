@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_HEALTH" />
     <uses-permission android:name="android.permission.BODY_SENSORS" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
 
     <uses-feature android:name="android.hardware.type.watch" />
     <uses-feature android:name="android.hardware.sensor.heartrate" android:required="true" />
@@ -31,7 +32,7 @@
             android:name=".MainActivity"
             android:exported="true"
             android:launchMode="singleInstance"
-        >
+            android:taskAffinity="com.yoonicode.catjam_wearos">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -40,10 +41,16 @@
         <activity
             android:name=".AuthenticationActivity"
             android:exported="true"
-            android:label="Sign In to CatJam">
+            android:label="Sign In to CatJam"
+            android:taskAffinity="com.yoonicode.catjam_wearos">
         </activity>
 
-        <service android:name=".HeartService" android:enabled="true" android:exported="false">
+        <service
+            android:name=".HeartService"
+            android:enabled="true"
+            android:exported="false"
+            android:foregroundServiceType="health"
+        >
             <intent-filter>
                 <action android:name="stop_service" />
             </intent-filter>

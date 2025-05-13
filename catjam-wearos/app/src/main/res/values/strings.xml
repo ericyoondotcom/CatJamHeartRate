@@ -1,5 +1,6 @@
 <resources>
-    <color name="color_bg">#850000</color>
+    <color name="color_bg">#000000</color>
+    <color name="color_fg">#FFFFFF</color>
     <string name="stop_service_action">stop_service</string>
     <string name="app_name">Cat Jam Heart Rate</string>
     <string name="main_page_subtitle">Configure at catjam.yoonicode.com</string>
@@ -17,7 +18,7 @@
     <string name="cancel_button">Stop</string>
 
     <string name="accuracy_measuring">Measuring...</string>
-    <string name="accuracy_inaccurate">Inaccurate measurements</string>
+    <string name="accuracy_inaccurate">Measuring...</string>
     <string name="accuracy_no_contact">Put on watch</string>
     <string name="heart_rate_display">%1$d bpm</string>
 </resources>

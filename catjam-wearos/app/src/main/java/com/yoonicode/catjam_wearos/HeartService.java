@@ -1,5 +1,7 @@
 package com.yoonicode.catjam_wearos;
 
+import static android.content.pm.ServiceInfo.FOREGROUND_SERVICE_TYPE_HEALTH;
+
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -57,7 +59,12 @@ public class HeartService extends Service {
                 .setContentIntent(launchPendingIntent)
                 .addAction(R.drawable.icon, getString(R.string.cancel_button), cancelServicePendingIntent)
                 .build();
-        startForeground(1, notif);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+            startForeground(1, notif, FOREGROUND_SERVICE_TYPE_HEALTH);
+        } else {
+            startForeground(1, notif);
+        }
 
         if(listener == null) {
             Log.d("s", "Sensor listener is null, creating one");

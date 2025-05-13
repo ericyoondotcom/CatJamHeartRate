@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.pm.PackageManager;
 import android.hardware.SensorManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.util.Log;
@@ -54,7 +55,7 @@ public class MainActivity extends Activity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         binding.signOutButton.setOnClickListener(view -> { signOut(); });
-        binding.grantPermissionButton.setOnClickListener(view -> { requestPermission(); });
+        binding.grantPermissionButton.setOnClickListener(view -> { requestHeartPermission(); });
         binding.signInButton.setOnClickListener(view -> { tryAuthentication(); });
 
         if(FirebaseManager.instance == null) {
@@ -97,14 +98,28 @@ public class MainActivity extends Activity {
         updateUI();
     }
 
-    private void requestPermission() {
+    private void requestHeartPermission() {
         ActivityCompat.requestPermissions(MainActivity.this, new String[] { Manifest.permission.BODY_SENSORS }, 1);
+    }
+
+    private void requestNotificationPermission() {
+        if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED) {
+            return;
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            ActivityCompat.requestPermissions(MainActivity.this, new String[] { Manifest.permission.POST_NOTIFICATIONS }, 2);
+        }
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults)
     {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        // return if this is not the heart rate permission
+        if (requestCode != 1) {
+            return;
+        }
 
         if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             updateUI();
@@ -122,12 +137,14 @@ public class MainActivity extends Activity {
     private void onReadyToTrack() {
         Context context = getApplicationContext();
         Intent intent = new Intent(context, HeartService.class);
-        context.startService(intent);
+
+        requestNotificationPermission();
+        context.startForegroundService(intent);
 
         Log.d("bind", "Bind service called");
         isBound = bindService(intent, connection, Context.BIND_AUTO_CREATE);
 
-        new Timer().scheduleAtFixedRate(new TimerTask(){
+        new Timer().schedule(new TimerTask(){
             @Override
             public void run(){
                 if(service != null) {

@@ -23,7 +23,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal|top"
             android:text="@string/no_permission_subtitle"
-            android:textAlignment="center" />
+            android:textAlignment="center"
+            android:textColor="@color/color_fg" />
 
         <Button
             android:id="@+id/grant_permission_button"
@@ -48,7 +49,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal|top"
             android:text="@string/unauthenticated_subtitle"
-            android:textAlignment="center" />
+            android:textAlignment="center"
+            android:textColor="@color/color_fg" />
 
         <Button
             android:id="@+id/sign_in_button"
@@ -73,7 +75,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal|top"
             android:text="@string/main_page_subtitle"
-            android:textAlignment="center" />
+            android:textAlignment="center"
+            android:textColor="@color/color_fg" />
 
         <TextView
             android:id="@+id/hr_display"
@@ -85,7 +88,8 @@
             android:autoSizeTextType="uniform"
             android:hyphenationFrequency="none"
             android:text="@string/accuracy_measuring"
-            android:textAlignment="center" />
+            android:textAlignment="center"
+            android:textColor="@color/color_fg" />
 
         <Button
             android:id="@+id/sign_out_button"
