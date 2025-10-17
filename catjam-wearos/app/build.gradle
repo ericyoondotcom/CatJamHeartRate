@@ -5,14 +5,14 @@ plugins {
 
 android {
     namespace 'com.yoonicode.catjam_wearos'
-    compileSdk 35
+    compileSdk 36
 
     defaultConfig {
         applicationId "com.yoonicode.catjam_wearos"
         minSdk 29
-        targetSdk 34
-        versionCode 8
-        versionName "1.0.2"
+        targetSdk 36
+        versionCode 10
+        versionName "1.0.3"
 
     }
 
