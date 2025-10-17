@@ -28,7 +28,7 @@ android {
 }
 
 dependencies {
-
+    implementation("androidx.core:core-splashscreen:1.2.0-rc01")
     implementation 'com.google.android.gms:play-services-wearable:19.0.0'
     implementation 'androidx.percentlayout:percentlayout:1.0.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'

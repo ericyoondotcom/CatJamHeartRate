@@ -13,8 +13,6 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.core.app.ActivityCompat;
@@ -25,6 +23,7 @@ import com.yoonicode.catjam_wearos.databinding.ActivityMainBinding;
 
 import java.util.Timer;
 import java.util.TimerTask;
+import androidx.core.splashscreen.SplashScreen;
 
 public class MainActivity extends Activity {
 
@@ -51,6 +50,7 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         context = this;
+        SplashScreen.installSplashScreen(this);
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
